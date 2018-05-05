@@ -1,8 +1,8 @@
 # main links
 main:
   - title: "Programming"
-    url: https://ogudal20.github.io/programming
-   - title: "About"
-    url: https://ogudal20.github.io/about
-   - title: "Infosec"
-    url: https://ogudal20.github.io/infosec/
+    url: /programming/
+  - title: "About"
+    url: /about/
+  - title: "Infosec"
+    url: /infosec/
