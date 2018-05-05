@@ -100,8 +100,8 @@ analytics:
 author:
   name             : "ogudal20"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "NULL"
-  location         : "Somewhere"
+  bio              : "Hacking and Programming Student"
+  location         : "UK"
   email            :
   uri              :
   home             : # null (default), "absolute or relative url to link to author home"
