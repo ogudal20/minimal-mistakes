@@ -20,7 +20,7 @@ boJ9jbbUNNfktd78OOpsqOltutMc3MY1
 bandit0@bandit:~$ 
 ```
 
-#  
+---  
 
 ### Bandit 1 -> Level 2
 
