@@ -52,3 +52,32 @@ bandit1@bandit:~$ cat ./-
 CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
 ```
 
+---
+
+
+### Bandit 2 -> Level 3
+
+
+Another straight foward level.
+
+1. List files in the directory
+2. To display files that contain a spaces in their name, you can wrap them
+with quotes.
+3. end.
+
+
+```
+bandit2@bandit:~$ ls -la
+total 24
+drwxr-xr-x  2 root    root    4096 Dec 28 14:34 .
+drwxr-xr-x 29 root    root    4096 Dec 28 14:34 ..
+-rw-r--r--  1 root    root     220 Sep  1  2015 .bash_logout
+-rw-r--r--  1 root    root    3771 Sep  1  2015 .bashrc
+-rw-r--r--  1 root    root     655 Jun 24  2016 .profile
+-rw-r-----  1 bandit3 bandit2   33 Dec 28 14:34 spaces in this filename
+bandit2@bandit:~$ cat "spaces in this filename" 
+UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
+bandit2@bandit:~$ 
+```
+
+
