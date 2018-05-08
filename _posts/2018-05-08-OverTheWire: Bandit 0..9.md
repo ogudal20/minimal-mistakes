@@ -19,3 +19,36 @@ bandit0@bandit:~$ cat readme
 boJ9jbbUNNfktd78OOpsqOltutMc3MY1
 bandit0@bandit:~$ 
 ```
+
+# " " 
+
+### Bandit 1 -> Level 2
+
+This level is still basic, just a minor hurdle;
+
+1. We first list the files in the directory again.
+2. We recognize a file -
+3. Now we can't cat the file, as cat see - as stdout.
+4. So we cat based on its relative path using;
+
+```bash
+#!/bin/bash
+
+cat ./-
+```
+
+```
+bandit1@bandit:~$ ls -la ./
+total 24
+-rw-r-----  1 bandit2 bandit1   33 Dec 28 14:34 -
+drwxr-xr-x  2 root    root    4096 Dec 28 14:34 .
+drwxr-xr-x 29 root    root    4096 Dec 28 14:34 ..
+-rw-r--r--  1 root    root     220 Sep  1  2015 .bash_logout
+-rw-r--r--  1 root    root    3771 Sep  1  2015 .bashrc
+-rw-r--r--  1 root    root     655 Jun 24  2016 .profile
+bandit1@bandit:~$ cat /.-
+cat: /.-: No such file or directory
+bandit1@bandit:~$ cat ./-
+CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
+```
+
