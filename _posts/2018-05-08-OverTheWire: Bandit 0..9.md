@@ -171,3 +171,82 @@ We can see one file has ascii text inside so i cat the file and
 this reveals the password for the next level.
 
 
+---
+
+### Bandit 5 -> Level 6
+
+* Task 
+The password for the next level is stored in a file somewhere under the inhere directory and has all of the following properties:
+
+    human-readable
+    1033 bytes in size
+    not executable
+
+* So i first open the manual for find.
+```
+bandit5@bandit:~/inhere$ man find
+```
+* I then search on how to check the size of a file.
+```
+/size
+```
+
+* I find various options for size.
+
+```
+ -size n[cwbkMG]
+              File uses n units of space, rounding up.  The following suffixes
+              can be used:
+
+              `b'    for  512-byte blocks (this is the default if no suffix is
+                     used)
+
+              `c'    for bytes
+
+              `w'    for two-byte words
+
+              `k'    for Kilobytes (units of 1024 bytes)
+
+              `M'    for Megabytes (units of 1048576 bytes)
+
+              `G'    for Gigabytes (units of 1073741824 bytes)
+```
+* So from the options it seems like we construct the following command to get
+files with size of 1033 bytes.
+
+```
+find ~/inhere -size 1033c
+
+* Now i need to check for files that are not executable
+* Again i search for files with executable
+
+```
+/executable
+```
+* There is a option to specify files that are executable using the 
+following option;
+```
+find -executable
+```
+
+* The tasks ask for file which is not executable
+* In bash you can negate a command using !.
+* So we can finally construct our command to find a file which 
+is 1033 bytes in size and not executable.
+
+```bash
+bandit5@bandit:~/inhere$ find ~/inhere -size 1033c ! -executable 
+```
+* The output reveals a file which satisfy this requirement
+
+```
+/home/bandit5/inhere/maybehere07/.file2
+```
+
+* Cat the file to reveal the password
+```
+bandit5@bandit:~/inhere$ cat ~/inhere/maybehere07/.file2 
+DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+```
+ 
+
