@@ -250,3 +250,46 @@ DXjZPULLxYr17uwoI01bNLQbtFemEgo7
 ```
  
 
+---
+
+### Bandit 6 -> Level 7
+
+* Task
+
+The password for the next level is stored somewhere on the server and has all of the following properties:
+
+    owned by user bandit7
+    owned by group bandit6
+    33 bytes in size
+
+* Go into man pages for find
+* search on how to specify group name
+
+```
+ -group gname
+              File belongs to group gname (numeric group ID allowed).
+```
+* Search on how to specify user name
+```
+user uname
+              File is owned by user uname (numeric user ID allowed).
+```
+
+* Add the two together, we already know how to search for files based on
+the size of file in bytes.
+
+```
+find / -user bandit7 -group bandit6 -size 33c
+```
+
+* File that matches these properties
+```
+/var/lib/dpkg/info/bandit7.password
+```
+
+* cat the file and password is revealed.
+```
+bandit6@bandit:~$ cat /var/lib/dpkg/info/bandit7.password
+HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
+```
+
