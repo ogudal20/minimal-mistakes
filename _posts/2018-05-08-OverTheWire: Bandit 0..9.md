@@ -234,7 +234,7 @@ find -executable
 * So we can finally construct our command to find a file which 
 is 1033 bytes in size and not executable.
 
-```bash
+```
 bandit5@bandit:~/inhere$ find ~/inhere -size 1033c ! -executable 
 ```
 * The output reveals a file which satisfy this requirement
