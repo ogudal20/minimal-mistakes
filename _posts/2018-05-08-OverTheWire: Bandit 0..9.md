@@ -116,3 +116,58 @@ pIwrPrtPN36QITSp3EQaw936yaFoFgAB
 bandit3@bandit:~/inhere$ 
 ```
 
+---
+
+### Bandit 4 -> Level 5
+
+* Task
+
+The password for the next level is stored in the only 
+human-readable file in the inhere directory.
+
+In this task i decided to go down a different route, as i noticed by 
+checking the file type of some files in the ~/inhere directory they were
+labelled as data. 
+
+So from there i created a bash script which will loop through, the
+files in the directory and determine the file type of each file in this
+directory.
+
+bash script;
+
+```bash
+#!/bin/bash
+
+#Check the file output on each file in the inhere directory.
+
+
+cd ~/inhere             #Change into the correct directory
+for Output in $(ls);    #Loop through the file and list them.
+do
+     file "./$Output"   #Determine the filetype.
+done
+```
+
+* Make the file executable
+* run the file
+
+```
+bandit4@bandit:/tmp/files$ chmod +x checkfile.sh 
+bandit4@bandit:/tmp/files$ ./checkfile.sh 
+./-file00: data
+./-file01: data
+./-file02: data
+./-file03: data
+./-file04: data
+./-file05: data
+./-file06: data
+./-file07: ASCII text
+./-file08: data
+./-file09: data
+bandit4@bandit:/tmp/files$ cat ~/inhere/"-file07"
+koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+```
+We can see one file has ascii text inside so i cat the file and
+this reveals the password for the next level.
+
+
