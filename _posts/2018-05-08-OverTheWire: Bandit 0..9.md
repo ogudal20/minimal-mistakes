@@ -216,7 +216,7 @@ files with size of 1033 bytes.
 
 ```
 find ~/inhere -size 1033c
-
+```
 * Now i need to check for files that are not executable
 * Again i search for files with executable
 
