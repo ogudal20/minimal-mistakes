@@ -26,3 +26,21 @@ L========== isA
 ========== truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
 ```
 
+---
+
+### Bandit10 -> Level 11
+
+* Task
+
+The password for the next level is stored in the file data.txt, which contains base64 encoded data
+
+* So the password is base64 encoded.
+* Look through the man pages on base64 and i recognize that -d option indicates that you can decode the base64
+* I give that a try.
+```
+bandit10@bandit:~$ base64 -d data.txt
+```
+```
+The password is IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
+```
+
