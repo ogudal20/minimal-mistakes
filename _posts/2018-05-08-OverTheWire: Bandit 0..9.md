@@ -293,3 +293,23 @@ bandit6@bandit:~$ cat /var/lib/dpkg/info/bandit7.password
 HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
 ```
 
+---
+
+### Bandit 7 -> Level 8
+
+* Task
+
+The password for the next level is stored in the file data.txt 
+next to the word millionth.
+
+* This challenge i will be using grep, to find the word millionth
+```
+bandit7@bandit:~$ grep "millionth" data.txt 
+```
+
+* This reveals the password for the next level.
+
+```
+millionth	cvX2JJa4CFALtqS87jk27qwqGhBM9plV
+```
+
