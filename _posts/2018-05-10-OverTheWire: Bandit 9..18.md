@@ -44,3 +44,34 @@ bandit10@bandit:~$ base64 -d data.txt
 The password is IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
 ```
 
+---
+
+### Bandit11 -> Level12
+
+* Task
+
+The password for the next level is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions
+
+* Overthewire provided helpful reading material in which i read through.
+* Near the bottom of wiki page, i see a implementation of the rot13
+```
+$ # Map upper case A-Z to N-ZA-M and lower case a-z to n-za-m
+$ echo "The Quick Brown Fox Jumps Over The Lazy Dog" | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+Gur Dhvpx Oebja Sbk Whzcf Bire Gur Ynml Qbt
+```
+
+* So as the comment explains the all uppercase characters in the alphabet are mapped to N-Z and A-M.
+* The same with lower case characters.
+* I tried this example out.
+
+```
+
+bandit11@bandit:~$ cat data.txt |tr 'A-Za-z' 'N-ZA-Mn-za-m'
+```
+
+* The password is revealed.
+
+```
+The password is 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
+```
+
