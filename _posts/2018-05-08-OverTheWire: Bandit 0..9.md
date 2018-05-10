@@ -313,3 +313,46 @@ bandit7@bandit:~$ grep "millionth" data.txt
 millionth	cvX2JJa4CFALtqS87jk27qwqGhBM9plV
 ```
 
+---
+
+### Bandit 8 -> Level 9
+
+* Task 
+The password for the next level is stored in the file data.txt and is the only line of text that occurs only once
+
+
+* I first looked at the man page for uniq
+``` 
+bandit8@bandit:~$ man uniq 
+```
+
+* The command essential removes duplicate lines, counts them etc.
+```
+ uniq - report or omit repeated lines
+```
+
+* There is option which you can only print unique line. So i first try
+this command out.
+
+```
+bandit8@bandit:~$ uniq -u data.txt 
+```
+
+* Unfortunately it display all the strings in the file.
+
+* So i then decided to check the man page for sort.
+
+* Which just sorts strings in alphabetical order.
+
+* From there i first sorted the strings in the file then piped the stdout to
+stdin for uniq strings in the file with the -u option.
+
+```
+bandit8@bandit:~$ sort data.txt |uniq -u
+```
+
+* This command gave the password for the next level.
+```
+UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
+```
+
