@@ -379,6 +379,7 @@ The password for the next level can be retrieved by submitting the password of t
 * I used telnet to connect to locahost on port 30000.
 * Then i looked at the man pages on how to specify the a user. This is done using the -l option
 * I already have the password from the last level.
+
 ```
 bandit14@bandit:~$ telnet localhost 30000 -l bandit15
 Trying ::1...
@@ -388,7 +389,6 @@ Escape character is '^]'.
 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
 Correct!
 BfMYroe26WYalil77FoDi9qh59eK5xNr
-
 Connection closed by foreign host.
 ```
  
@@ -611,11 +611,11 @@ verify error:num=18:self signed certificate
 verify return:1
 depth=0 CN = bandit
 verify return:1
----
+--
 Certificate chain
  0 s:/CN=bandit
    i:/CN=bandit
----
+--
 Server certificate
 -----BEGIN CERTIFICATE-----
 MIICsjCCAZqgAwIBAgIJAKZI1xYeoXFuMA0GCSqGSIb3DQEBCwUAMBExDzANBgNV
@@ -636,11 +636,11 @@ XFnxdxVy0ImGYtvmnZDQCGivDok6jA==
 -----END CERTIFICATE-----
 subject=/CN=bandit
 issuer=/CN=bandit
----
+--
 No client certificate CA names sent
----
+--
 SSL handshake has read 1015 bytes and written 631 bytes
----
+--
 New, TLSv1/SSLv3, Cipher is AES128-SHA
 Server public key is 2048 bit
 Secure Renegotiation IS supported
@@ -673,7 +673,7 @@ SSL-Session:
     Start Time: 1526212830
     Timeout   : 300 (sec)
     Verify return code: 18 (self signed certificate)
----
+--
 cluFn7wTiGryunymYOu4RcffSxQluehd
 Correct!
 -----BEGIN RSA PRIVATE KEY-----
