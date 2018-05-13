@@ -490,3 +490,221 @@ closed
 * Near the end at pasted in the password for the last level and that echo back the level for the next level.
 
 
+---
+
+### Bandit16 -> Level17
+
+* Task
+
+The credentials for the next level can be retrieved by submitting the password of the current level to a port on localhost in the range 31000 to 32000. First find out which of these ports have a server listening on them. Then find out which of those speak SSL and which don’t. There is only 1 server that will give the next credentials, the others will simply send back to you whatever you send to it.
+
+* In this challenge i had to use nmap to portscan on a range of ports
+* I already have some previous experience with the tool so this was not a difficult challenge.
+```
+bandit16@bandit:~$ nmap -A -vv -sT -T4 -p31000-32000 localhost
+```
+* Option -A is to enable OS and version detection.
+* Option -vv is for verbose. Just get info on the nmap while its running.
+* Option -sT is to connect to tcp socket.
+* Option -T4 for a more agressive scan. Faster as well.
+* Option -p31000-32000 to scan between the port ranges 31000-32000
+* localhost the host we are scanning.
+
+* The output revealed.
+```
+PORT      STATE SERVICE     REASON  VERSION
+31046/tcp open  echo        syn-ack
+31518/tcp open  ssl/echo    syn-ack
+| ssl-cert: Subject: commonName=bandit
+| Issuer: commonName=bandit
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2017-12-28T13:23:40
+| Not valid after:  2027-12-26T13:23:40
+| MD5:   9ceb 80ed 781c 17a4 55d0 5e61 b001 0ebe
+| SHA-1: ab78 886c 4527 c26e 6a4c 7808 aa2d 93d1 5512 e33f
+| -----BEGIN CERTIFICATE-----
+| MIICsjCCAZqgAwIBAgIJAKZI1xYeoXFuMA0GCSqGSIb3DQEBCwUAMBExDzANBgNV
+| BAMMBmJhbmRpdDAeFw0xNzEyMjgxMzIzNDBaFw0yNzEyMjYxMzIzNDBaMBExDzAN
+| BgNVBAMMBmJhbmRpdDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOcX
+| ruVcnQUBeHJeNpSYayQExCJmcHzSCktnOnF/H4efWzxvLRWt5z4gYaKvTC9ixLrb
+| K7a255GEaUbP/NVFpB/sn56uJc1ijz8u0hWQ3DwVe5ZrHUkNzAuvC2OeQgh2HanV
+| 5LwB1nmRZn90PG1puKxktMjXsGY7f9Yvx1/yVnZqu2Ev2uDA0RXij/T+hEqgDMI7
+| y4ZFmuYD8z4b2kAUwj7RHh9LUKXKQlO+Pn8hchdR/4IK+Xc4+GFOin0XdQdUJaBD
+| 8quOUma424ejF5aB6QCSE82MmHlLBO2tzC9yKv8L8w+fUeQFECH1WfPC56GcAq3U
+| IvgdjGrU/7EKN5XkONcCAwEAAaMNMAswCQYDVR0TBAIwADANBgkqhkiG9w0BAQsF
+| AAOCAQEAnrOty7WAOpDGhuu0V8FqPoKNwFrqGuQCTeqhQ9LP0bFNhuH34pZ0JFsH
+| L+Y/q4Um7+66mNJUFpMDykm51xLY2Y4oDNCzugy+fm5Q0EWKRwrq+hIM+5hs0RdC
+| nARP+719ddmUiXF7r7IVP2gK+xqpa8+YcYnLuoXEtpKkrrQCCUiqabltU5yRMR77
+| 3wqB54txrB4IhwnXqpO23kTuRNrkG+JqDUkaVpvct+FAdT3PODMONP/oHII3SH9i
+| ar/rI9k+4hjlg4NqOoduxX9M+iLJ0Zgj6HAg3EQVn4NHsgmuTgmknbhqTU3o4IwB
+| XFnxdxVy0ImGYtvmnZDQCGivDok6jA==
+|_-----END CERTIFICATE-----
+|_ssl-date: TLS randomness does not represent time
+31691/tcp open  echo        syn-ack
+31790/tcp open  ssl/unknown syn-ack
+| ssl-cert: Subject: commonName=bandit
+| Issuer: commonName=bandit
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2017-12-28T13:23:40
+| Not valid after:  2027-12-26T13:23:40
+| MD5:   9ceb 80ed 781c 17a4 55d0 5e61 b001 0ebe
+| SHA-1: ab78 886c 4527 c26e 6a4c 7808 aa2d 93d1 5512 e33f
+| -----BEGIN CERTIFICATE-----
+| MIICsjCCAZqgAwIBAgIJAKZI1xYeoXFuMA0GCSqGSIb3DQEBCwUAMBExDzANBgNV
+| BAMMBmJhbmRpdDAeFw0xNzEyMjgxMzIzNDBaFw0yNzEyMjYxMzIzNDBaMBExDzAN
+| BgNVBAMMBmJhbmRpdDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOcX
+| ruVcnQUBeHJeNpSYayQExCJmcHzSCktnOnF/H4efWzxvLRWt5z4gYaKvTC9ixLrb
+| K7a255GEaUbP/NVFpB/sn56uJc1ijz8u0hWQ3DwVe5ZrHUkNzAuvC2OeQgh2HanV
+| 5LwB1nmRZn90PG1puKxktMjXsGY7f9Yvx1/yVnZqu2Ev2uDA0RXij/T+hEqgDMI7
+| y4ZFmuYD8z4b2kAUwj7RHh9LUKXKQlO+Pn8hchdR/4IK+Xc4+GFOin0XdQdUJaBD
+| 8quOUma424ejF5aB6QCSE82MmHlLBO2tzC9yKv8L8w+fUeQFECH1WfPC56GcAq3U
+| IvgdjGrU/7EKN5XkONcCAwEAAaMNMAswCQYDVR0TBAIwADANBgkqhkiG9w0BAQsF
+| AAOCAQEAnrOty7WAOpDGhuu0V8FqPoKNwFrqGuQCTeqhQ9LP0bFNhuH34pZ0JFsH
+| L+Y/q4Um7+66mNJUFpMDykm51xLY2Y4oDNCzugy+fm5Q0EWKRwrq+hIM+5hs0RdC
+| nARP+719ddmUiXF7r7IVP2gK+xqpa8+YcYnLuoXEtpKkrrQCCUiqabltU5yRMR77
+| 3wqB54txrB4IhwnXqpO23kTuRNrkG+JqDUkaVpvct+FAdT3PODMONP/oHII3SH9i
+| ar/rI9k+4hjlg4NqOoduxX9M+iLJ0Zgj6HAg3EQVn4NHsgmuTgmknbhqTU3o4IwB
+| XFnxdxVy0ImGYtvmnZDQCGivDok6jA==
+|_-----END CERTIFICATE-----
+|_ssl-date: TLS randomness does not represent time
+31960/tcp open  echo        syn-ack
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port31790-TCP:V=7.01%T=SSL%I=7%D=5/13%Time=5AF827B0%P=x86_64-pc-linux-g
+SF:nu%r(GenericLines,31,"Wrong!\x20Please\x20enter\x20the\x20correct\x20cu
+SF:rrent\x20password\n")%r(GetRequest,31,"Wrong!\x20Please\x20enter\x20the
+SF:\x20correct\x20current\x20password\n")%r(HTTPOptions,31,"Wrong!\x20Plea
+SF:se\x20enter\x20the\x20correct\x20current\x20password\n")%r(RTSPRequest,
+SF:31,"Wrong!\x20Please\x20enter\x20the\x20correct\x20current\x20password\
+SF:n")%r(Help,31,"Wrong!\x20Please\x20enter\x20the\x20correct\x20current\x
+SF:20password\n")%r(SSLSessionReq,31,"Wrong!\x20Please\x20enter\x20the\x20
+SF:correct\x20current\x20password\n")%r(TLSSessionReq,31,"Wrong!\x20Please
+SF:\x20enter\x20the\x20correct\x20current\x20password\n")%r(Kerberos,31,"W
+SF:rong!\x20Please\x20enter\x20the\x20correct\x20current\x20password\n")%r
+SF:(FourOhFourRequest,31,"Wrong!\x20Please\x20enter\x20the\x20correct\x20c
+SF:urrent\x20password\n")%r(LPDString,31,"Wrong!\x20Please\x20enter\x20the
+SF:\x20correct\x20current\x20password\n")%r(SIPOptions,31,"Wrong!\x20Pleas
+SF:e\x20enter\x20the\x20correct\x20current\x20password\n");
+```
+
+* We can see that 5 ports are open between these port ranges.
+* Also only two of those ports are running a ssl service.
+```
+31790/tcp open  ssl/unknown syn-ack
+31518/tcp open  ssl/echo    syn-ack
+```
+
+* I tried to connect to the first one  in that list.
+```
+bandit16@bandit:~$ openssl s_client -connect localhost:31790 -ign_eof
+```
+
+* Output
+
+```
+CONNECTED(00000003)
+depth=0 CN = bandit
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 CN = bandit
+verify return:1
+---
+Certificate chain
+ 0 s:/CN=bandit
+   i:/CN=bandit
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIICsjCCAZqgAwIBAgIJAKZI1xYeoXFuMA0GCSqGSIb3DQEBCwUAMBExDzANBgNV
+BAMMBmJhbmRpdDAeFw0xNzEyMjgxMzIzNDBaFw0yNzEyMjYxMzIzNDBaMBExDzAN
+BgNVBAMMBmJhbmRpdDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOcX
+ruVcnQUBeHJeNpSYayQExCJmcHzSCktnOnF/H4efWzxvLRWt5z4gYaKvTC9ixLrb
+K7a255GEaUbP/NVFpB/sn56uJc1ijz8u0hWQ3DwVe5ZrHUkNzAuvC2OeQgh2HanV
+5LwB1nmRZn90PG1puKxktMjXsGY7f9Yvx1/yVnZqu2Ev2uDA0RXij/T+hEqgDMI7
+y4ZFmuYD8z4b2kAUwj7RHh9LUKXKQlO+Pn8hchdR/4IK+Xc4+GFOin0XdQdUJaBD
+8quOUma424ejF5aB6QCSE82MmHlLBO2tzC9yKv8L8w+fUeQFECH1WfPC56GcAq3U
+IvgdjGrU/7EKN5XkONcCAwEAAaMNMAswCQYDVR0TBAIwADANBgkqhkiG9w0BAQsF
+AAOCAQEAnrOty7WAOpDGhuu0V8FqPoKNwFrqGuQCTeqhQ9LP0bFNhuH34pZ0JFsH
+L+Y/q4Um7+66mNJUFpMDykm51xLY2Y4oDNCzugy+fm5Q0EWKRwrq+hIM+5hs0RdC
+nARP+719ddmUiXF7r7IVP2gK+xqpa8+YcYnLuoXEtpKkrrQCCUiqabltU5yRMR77
+3wqB54txrB4IhwnXqpO23kTuRNrkG+JqDUkaVpvct+FAdT3PODMONP/oHII3SH9i
+ar/rI9k+4hjlg4NqOoduxX9M+iLJ0Zgj6HAg3EQVn4NHsgmuTgmknbhqTU3o4IwB
+XFnxdxVy0ImGYtvmnZDQCGivDok6jA==
+-----END CERTIFICATE-----
+subject=/CN=bandit
+issuer=/CN=bandit
+---
+No client certificate CA names sent
+---
+SSL handshake has read 1015 bytes and written 631 bytes
+---
+New, TLSv1/SSLv3, Cipher is AES128-SHA
+Server public key is 2048 bit
+Secure Renegotiation IS supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : TLSv1
+    Cipher    : AES128-SHA
+    Session-ID: C1BAD8BBD37CD5340B8CB1CD67943DB8CAF9FF47F9E722F1924FC471BEEA6F26
+    Session-ID-ctx: 
+    Master-Key: B81AE9BAAD4A0B4FFAC7362621A4C78E4330B0D17F5D7F942EB9278B4735CEC627AA9FDEEDDA6C571CA46A385204E38C
+    Key-Arg   : None
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - 9a b6 c1 e5 3e 9c 51 03-45 ba c9 c1 cc d7 23 80   ....>.Q.E.....#.
+    0010 - ac 25 69 b9 fd 29 a0 40-f6 5f be 9b b6 82 d5 ed   .%i..).@._......
+    0020 - f3 7e 54 72 69 a4 17 22-12 ad cd ff c3 d7 34 7b   .~Tri.."......4{
+    0030 - 8c 13 c7 2e 38 3d 87 5b-96 7e 86 66 71 ac 39 ff   ....8=.[.~.fq.9.
+    0040 - 37 62 42 6e b8 58 b8 66-a7 0f 46 3d 11 51 c1 be   7bBn.X.f..F=.Q..
+    0050 - f4 84 ae 44 1e 3c e1 1e-58 8d 7c 1e 5d fa 92 39   ...D.<..X.|.]..9
+    0060 - 1c e0 8c 09 a4 78 94 8f-42 79 42 db 5b 30 5d 9f   .....x..ByB.[0].
+    0070 - 33 aa e1 b4 29 f3 3d d6-a5 93 35 ca c2 b8 17 26   3...).=...5....&
+    0080 - 84 62 46 74 bd 33 47 cc-b4 a6 df 22 bc 73 a2 61   .bFt.3G....".s.a
+    0090 - 54 f2 33 66 b9 c5 d6 1d-78 20 62 5e 2f 51 50 8c   T.3f....x b^/QP.
+
+    Start Time: 1526212830
+    Timeout   : 300 (sec)
+    Verify return code: 18 (self signed certificate)
+---
+cluFn7wTiGryunymYOu4RcffSxQluehd
+Correct!
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAvmOkuifmMg6HL2YPIOjon6iWfbp7c3jx34YkYWqUH57SUdyJ
+imZzeyGC0gtZPGujUSxiJSWI/oTqexh+cAMTSMlOJf7+BrJObArnxd9Y7YT2bRPQ
+Ja6Lzb558YW3FZl87ORiO+rW4LCDCNd2lUvLE/GL2GWyuKN0K5iCd5TbtJzEkQTu
+DSt2mcNn4rhAL+JFr56o4T6z8WWAW18BR6yGrMq7Q/kALHYW3OekePQAzL0VUYbW
+JGTi65CxbCnzc/w4+mqQyvmzpWtMAzJTzAzQxNbkR2MBGySxDLrjg0LWN6sK7wNX
+x0YVztz/zbIkPjfkU1jHS+9EbVNj+D1XFOJuaQIDAQABAoIBABagpxpM1aoLWfvD
+KHcj10nqcoBc4oE11aFYQwik7xfW+24pRNuDE6SFthOar69jp5RlLwD1NhPx3iBl
+J9nOM8OJ0VToum43UOS8YxF8WwhXriYGnc1sskbwpXOUDc9uX4+UESzH22P29ovd
+d8WErY0gPxun8pbJLmxkAtWNhpMvfe0050vk9TL5wqbu9AlbssgTcCXkMQnPw9nC
+YNN6DDP2lbcBrvgT9YCNL6C+ZKufD52yOQ9qOkwFTEQpjtF4uNtJom+asvlpmS8A
+vLY9r60wYSvmZhNqBUrj7lyCtXMIu1kkd4w7F77k+DjHoAXyxcUp1DGL51sOmama
++TOWWgECgYEA8JtPxP0GRJ+IQkX262jM3dEIkza8ky5moIwUqYdsx0NxHgRRhORT
+8c8hAuRBb2G82so8vUHk/fur85OEfc9TncnCY2crpoqsghifKLxrLgtT+qDpfZnx
+SatLdt8GfQ85yA7hnWWJ2MxF3NaeSDm75Lsm+tBbAiyc9P2jGRNtMSkCgYEAypHd
+HCctNi/FwjulhttFx/rHYKhLidZDFYeiE/v45bN4yFm8x7R/b0iE7KaszX+Exdvt
+SghaTdcG0Knyw1bpJVyusavPzpaJMjdJ6tcFhVAbAjm7enCIvGCSx+X3l5SiWg0A
+R57hJglezIiVjv3aGwHwvlZvtszK6zV6oXFAu0ECgYAbjo46T4hyP5tJi93V5HDi
+Ttiek7xRVxUl+iU7rWkGAXFpMLFteQEsRr7PJ/lemmEY5eTDAFMLy9FL2m9oQWCg
+R8VdwSk8r9FGLS+9aKcV5PI/WEKlwgXinB3OhYimtiG2Cg5JCqIZFHxD6MjEGOiu
+L8ktHMPvodBwNsSBULpG0QKBgBAplTfC1HOnWiMGOU3KPwYWt0O6CdTkmJOmL8Ni
+blh9elyZ9FsGxsgtRBXRsqXuz7wtsQAgLHxbdLq/ZJQ7YfzOKU4ZxEnabvXnvWkU
+YOdjHdSOoKvDQNWu6ucyLRAWFuISeXw9a/9p7ftpxm0TSgyvmfLF2MIAEwyzRqaM
+77pBAoGAMmjmIJdjp+Ez8duyn3ieo36yrttF5NSsJLAbxFpdlc1gvtGCWW+9Cq0b
+dxviW8+TFVEBl1O4f7HVm6EpTscdDxU+bCXWkfjuRb7Dy9GOtt9JPsX8MBTakzh3
+vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
+-----END RSA PRIVATE KEY-----
+
+closed
+```
+* When i pasted the password for the current level. The server echoed back a private rsa key.
+
