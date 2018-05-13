@@ -368,3 +368,27 @@ bandit14@bandit:/etc/bandit_pass$ cat bandit14
 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
 ```
 
+---
+
+### Bandit14 -> Level15
+
+* Task
+
+The password for the next level can be retrieved by submitting the password of the current level to port 30000 on localhost.
+
+* I used telnet to connect to locahost on port 30000.
+* Then i looked at the man pages on how to specify the a user. This is done using the -l option
+* I already have the password from the last level.
+```
+bandit14@bandit:~$ telnet localhost 30000 -l bandit15
+Trying ::1...
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+Correct!
+BfMYroe26WYalil77FoDi9qh59eK5xNr
+
+Connection closed by foreign host.
+```
+ 
