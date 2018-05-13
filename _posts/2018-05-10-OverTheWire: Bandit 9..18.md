@@ -392,3 +392,101 @@ BfMYroe26WYalil77FoDi9qh59eK5xNr
 Connection closed by foreign host.
 ```
  
+---
+
+###Bandit15 -> Level16
+
+* Task
+
+The password for the next level can be retrieved by submitting the password of the current level to port 30001 on localhost using SSL encryption.
+
+* I looked at the man pages for s_client on how to connect to to host and port
+```
+[-connect host:port]
+```
+* Now i need to add the -ign_eof which stops the connection shutting down when the end of file is reached.
+
+```
+bandit14@bandit:~$ openssl s_client -connect localhost:30001 -ign_eof 
+```
+
+* Output
+```
+CONNECTED(00000003)
+depth=0 CN = bandit
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 CN = bandit
+verify return:1
+---
+Certificate chain
+ 0 s:/CN=bandit
+   i:/CN=bandit
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIICsjCCAZqgAwIBAgIJAKZI1xYeoXFuMA0GCSqGSIb3DQEBCwUAMBExDzANBgNV
+BAMMBmJhbmRpdDAeFw0xNzEyMjgxMzIzNDBaFw0yNzEyMjYxMzIzNDBaMBExDzAN
+BgNVBAMMBmJhbmRpdDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOcX
+ruVcnQUBeHJeNpSYayQExCJmcHzSCktnOnF/H4efWzxvLRWt5z4gYaKvTC9ixLrb
+K7a255GEaUbP/NVFpB/sn56uJc1ijz8u0hWQ3DwVe5ZrHUkNzAuvC2OeQgh2HanV
+5LwB1nmRZn90PG1puKxktMjXsGY7f9Yvx1/yVnZqu2Ev2uDA0RXij/T+hEqgDMI7
+y4ZFmuYD8z4b2kAUwj7RHh9LUKXKQlO+Pn8hchdR/4IK+Xc4+GFOin0XdQdUJaBD
+8quOUma424ejF5aB6QCSE82MmHlLBO2tzC9yKv8L8w+fUeQFECH1WfPC56GcAq3U
+IvgdjGrU/7EKN5XkONcCAwEAAaMNMAswCQYDVR0TBAIwADANBgkqhkiG9w0BAQsF
+AAOCAQEAnrOty7WAOpDGhuu0V8FqPoKNwFrqGuQCTeqhQ9LP0bFNhuH34pZ0JFsH
+L+Y/q4Um7+66mNJUFpMDykm51xLY2Y4oDNCzugy+fm5Q0EWKRwrq+hIM+5hs0RdC
+nARP+719ddmUiXF7r7IVP2gK+xqpa8+YcYnLuoXEtpKkrrQCCUiqabltU5yRMR77
+3wqB54txrB4IhwnXqpO23kTuRNrkG+JqDUkaVpvct+FAdT3PODMONP/oHII3SH9i
+ar/rI9k+4hjlg4NqOoduxX9M+iLJ0Zgj6HAg3EQVn4NHsgmuTgmknbhqTU3o4IwB
+XFnxdxVy0ImGYtvmnZDQCGivDok6jA==
+-----END CERTIFICATE-----
+subject=/CN=bandit
+issuer=/CN=bandit
+---
+No client certificate CA names sent
+---
+SSL handshake has read 1015 bytes and written 631 bytes
+---
+New, TLSv1/SSLv3, Cipher is AES128-SHA
+Server public key is 2048 bit
+Secure Renegotiation IS supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : TLSv1
+    Cipher    : AES128-SHA
+    Session-ID: D7F4D507E5A761968BC75EBA247F6ACE8FB93DA72C32DA99AD2F2AFBC115203F
+    Session-ID-ctx: 
+    Master-Key: 2EA72FA70D41AF9C7C8F2E1C22B7D7CC4CEDD1115BDA15E6657EBF7FEE8BD5E930760C91EA576CECEE0B225B709CF548
+    Key-Arg   : None
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - 08 f0 15 a5 d6 6f a0 e8-06 d6 bb a4 0c 33 eb 04   .....o.......3..
+    0010 - c7 db aa 5c ad b9 2b 08-2d a5 47 a6 b5 48 e5 c9   ...\..+.-.G..H..
+    0020 - 6c 95 83 af b2 2c cb d2-51 38 cb 10 77 61 2b 9d   l....,..Q8..wa+.
+    0030 - 31 83 a4 74 24 a3 35 ee-da 85 4b c8 25 5c 43 81   1..t$.5...K.%\C.
+    0040 - 44 9b d9 fe 35 fd c4 90-3a ac 49 e0 fd 06 b0 28   D...5...:.I....(
+    0050 - be d9 43 74 a5 2b e6 b3-8b ca c4 ec b3 5b 03 85   ..Ct.+.......[..
+    0060 - f5 ee 57 78 0a 5f 08 d9-25 c3 42 cb de 56 69 53   ..Wx._..%.B..ViS
+    0070 - 0b 86 33 2d 24 a0 0e 80-f3 fc 47 f8 39 71 83 70   ..3-$.....G.9q.p
+    0080 - 14 a1 fa f7 d7 52 4a 5a-ea 29 9c e8 7e 90 79 1c   .....RJZ.)..~.y.
+    0090 - 31 75 89 90 e2 51 b3 f3-3f 8f a1 69 c7 5b 61 f7   1u...Q..?..i.[a.
+
+    Start Time: 1526211835
+    Timeout   : 300 (sec)
+    Verify return code: 18 (self signed certificate)
+---
+BfMYroe26WYalil77FoDi9qh59eK5xNr
+Correct!
+cluFn7wTiGryunymYOu4RcffSxQluehd
+
+closed
+```
+* Near the end at pasted in the password for the last level and that echo back the level for the next level.
+
+
