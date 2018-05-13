@@ -336,3 +336,35 @@ The password is 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
 * Done.
 
 
+---
+
+### Bandit 13 -> Level 14
+
+
+* Task
+
+The password for the next level is stored in /etc/bandit_pass/bandit14 and can only be read by user bandit14. For this level, you don’t get the next password, but you get a private SSH key that can be used to log into the next level. Note: localhost is a hostname that refers to the machine you are working on
+
+
+* So we have a private ssh key in the home directory.
+* So i all i need to do is specify the private the key to login to bandit14 through ssh.
+* I looked at the man page for ssh to see what option is needed to login with a private key.
+```
+ -i identity_file
+             Selects a file from which the identity (private key) for public key authentication is read. 
+```
+* The following command logins in with user bandit14 to the localhost.
+```
+bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost
+```
+
+* Now i need to find the /etc/bandit_pass/bandit14 where the password is stored.
+```
+bandit14@bandit:~$ cd /etc/bandit_pass/
+```
+* display the contents on bandit14 password.
+```
+bandit14@bandit:/etc/bandit_pass$ cat bandit14
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+```
+
