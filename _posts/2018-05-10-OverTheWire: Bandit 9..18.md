@@ -779,24 +779,3 @@ bandit17@bandit:~$ diff passwords.old passwords.new
 > kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
 ```
 
----
-
-### Bandit18 -> Level19
-
-* Task
-
-The password for the next level is stored in a file readme in the homedirectory. Unfortunately, someone has modified .bashrc to log you out when you log in with SSH.
-
-* The level echo bye bye and closes connection.
-* With ssh you can run commands when you connect with ssh.
-* So i decided to display the contents of /etc/bandit_pass/bandit18
-
-```
-root@kali:~# ssh bandit18@bandit.labs.overthewire.org -p 2220 cat /etc/bandit_pass/bandit18
-```
-* This revealed the password for the next level.
-```
-kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
-```
-
-
