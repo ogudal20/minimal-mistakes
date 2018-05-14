@@ -64,3 +64,43 @@ GbKksEFF4yrVs6il55v6gwY5aVje5f0j
 * This gave me the password for the next level.
 
 
+---
+
+### Bandit20 -> Level21
+
+* Task
+There is a setuid binary in the homedirectory that does the following: it makes a connection to localhost on the port you specify as a commandline argument. It then reads a line of text from the connection and compares it to the password in the previous level (bandit20). If the password is correct, it will transmit the password for the next level (bandit21).
+
+* The most important tool in this task was netcat.
+* So it is important to read the man pages on this tool.
+
+* I first created a listener with netcat.On port 6969.
+```
+bandit20@bandit:~$ nc -lv 6969
+```
+* -l option is to listen on a port.
+* -v option is for verbose.
+
+* I then open up another terminal where i executed the program suconnect. On port 6969.
+```
+bandit20@bandit:~$ ./suconnect 6969
+```
+* I pasted in the password from the previous level.
+```
+bandit20@bandit:~$ ./suconnect 6969
+Read: GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+Password matches, sending next password
+```
+* Recieved a password matches.
+* Went back to my other terminal where the listener is running.
+```
+bandit20@bandit:~$ nc -lvp 6969
+Listening on [0.0.0.0] (family 0, port 6969)
+Connection from [127.0.0.1] port 6969 [tcp/*] accepted (family 2, sport 54132)
+GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
+```
+
+* As you can see it echoed back the password for the next level.
+
+
