@@ -6,10 +6,10 @@ permalink: /sysadmin/
 
 # Sysadmin Related Posts
 
-### VMWare ESXI
+### VMWare ESXI:
 
-### Windows Server
+### Windows Server:
 
-### Linux Server
+### Linux Server:
 
 
