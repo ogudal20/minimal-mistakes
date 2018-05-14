@@ -7,6 +7,7 @@ The password for the next level is stored in a file readme in the homedirectory.
 * This exits with bye message and closes the ssh connection.
 * We can run commands while at the same time connecting through ssh on the host.
 * So i first connect to the host through ssh and list the files in the directory.
+
 ```
 root@kali:~# ssh bandit18@bandit.labs.overthewire.org -p 2220 ls -la
 This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
@@ -18,10 +19,10 @@ drwxr-xr-x 29 root     root     4096 Dec 28 14:34 ..
 -rw-r-----  1 bandit19 bandit18 3794 Dec 28 14:34 .bashrc
 -rw-r--r--  1 root     root      655 Jun 24  2016 .profile
 -rw-r-----  1 bandit19 bandit18   33 Dec 28 14:34 readme
-
 ```
 * We can see a readme file in the home directory
 * i cat the file. 
+
 ```
 root@kali:~# ssh bandit18@bandit.labs.overthewire.org -p 2220 cat readme
 This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
@@ -29,10 +30,13 @@ bandit18@bandit.labs.overthewire.org's password:
 IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
 
 ```
+
 * The password.
+
 ```
 IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
 ```
+
 ---
 
 ### Bandit19 -> Level20
@@ -75,17 +79,22 @@ There is a setuid binary in the homedirectory that does the following: it makes 
 * So it is important to read the man pages on this tool.
 
 * I first created a listener with netcat.On port 6969.
+
 ```
 bandit20@bandit:~$ nc -lv 6969
 ```
+
 * -l option is to listen on a port.
 * -v option is for verbose.
 
 * I then open up another terminal where i executed the program suconnect. On port 6969.
+
 ```
 bandit20@bandit:~$ ./suconnect 6969
 ```
+
 * I pasted in the password from the previous level.
+
 ```
 bandit20@bandit:~$ ./suconnect 6969
 Read: GbKksEFF4yrVs6il55v6gwY5aVje5f0j
@@ -93,6 +102,7 @@ Password matches, sending next password
 ```
 * Recieved a password matches.
 * Went back to my other terminal where the listener is running.
+
 ```
 bandit20@bandit:~$ nc -lvp 6969
 Listening on [0.0.0.0] (family 0, port 6969)
