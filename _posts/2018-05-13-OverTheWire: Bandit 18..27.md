@@ -114,3 +114,60 @@ gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
 * As you can see it echoed back the password for the next level.
 
 
+---
+
+### Bandit21 -> Level22
+
+* Task
+
+A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.
+
+* First step i took was to look into the /etc/cron.d/ directory.
+
+```
+bandit21@bandit:~$ cd /etc/cron.d
+```
+
+* List the files in the directory.
+
+```
+bandit21@bandit:/etc/cron.d$ ls -la
+total 28
+drwxr-xr-x   2 root root 4096 Dec 28 14:34 .
+drwxr-xr-x 100 root root 4096 Mar 12 09:51 ..
+-rw-r--r--   1 root root  102 Apr  5  2016 .placeholder
+-rw-r--r--   1 root root  120 Dec 28 14:34 cronjob_bandit22
+-rw-r--r--   1 root root  122 Dec 28 14:34 cronjob_bandit23
+-rw-r--r--   1 root root  120 Dec 28 14:34 cronjob_bandit24
+-rw-r--r--   1 root root  190 Oct 31  2017 popularity-contest
+```
+
+* The cronjob_bandit22 file look interesting. So i looked into the contents for the file.
+
+```
+bandit21@bandit:/etc/cron.d$ cat cronjob_bandit22
+@reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+```
+
+* So it looks like a shell script is run every minute.
+* I searched for the file and look into the contents.
+
+```
+bandit21@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit22.sh 
+#!/bin/bash
+chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+```
+* From here we can see a the password for the next level is redirected to the /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv. 
+
+* I displayed the contents of this file.
+
+```
+bandit21@bandit:/etc/cron.d$ cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
+```
+
+* This gave me the password for the next level.
+
+
