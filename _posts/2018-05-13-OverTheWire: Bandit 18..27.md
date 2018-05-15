@@ -171,3 +171,61 @@ Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
 * This gave me the password for the next level.
 
 
+---
+
+### Bandit22 -> Level23
+
+* Task
+
+A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.
+
+* Again there is a program runnning automatically in the /etc/cron.d.
+* So i looked into the directory.
+
+```
+bandit22@bandit:~$ cd /etc/cron.d/
+bandit22@bandit:/etc/cron.d$ ls -la
+total 28
+drwxr-xr-x   2 root root 4096 Dec 28 14:34 .
+drwxr-xr-x 100 root root 4096 Mar 12 09:51 ..
+-rw-r--r--   1 root root  102 Apr  5  2016 .placeholder
+-rw-r--r--   1 root root  120 Dec 28 14:34 cronjob_bandit22
+-rw-r--r--   1 root root  122 Dec 28 14:34 cronjob_bandit23
+-rw-r--r--   1 root root  120 Dec 28 14:34 cronjob_bandit24
+-rw-r--r--   1 root root  190 Oct 31  2017 popularity-contest
+```
+
+* There is a cronjob_bandit23.
+* I displayed the contents of the file.
+
+```
+bandit22@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit23.sh 
+#!/bin/bash
+
+myname=$(whoami)
+mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+
+echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
+
+cat /etc/bandit_pass/$myname > /tmp/$mytarget
+```
+
+* From this bash script. It looks like myname variable holds the current username, which in this case is bandit23.
+* Then another variable mytarget, prints a message I am user bandit23.
+* This message is hash with a md5sum.
+* Then the first field is trimmed with cut.
+* Finally the contents of the password in the /etc/bandit_pass/bandit23 is redirected to /tmp/$mytarget . mytarget being the variable.
+
+```
+bandit22@bandit:/etc/cron.d$ echo I am user bandit23 | md5sum | cut -d ' ' -f 1
+8ca319486bfbbc3663ea0fbe81326349
+```
+* Dispay the hash. This is the file in tmp directory.
+
+```
+bandit22@bandit:/etc/cron.d$ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
+```
+
+* I recieve the password for the next level.
+
