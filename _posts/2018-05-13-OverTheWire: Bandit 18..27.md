@@ -406,3 +406,95 @@ The password of user bandit25 is uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
 ```
 
 
+---
+
+### Bandit 25 -> Level26
+
+* Task
+
+Logging in to bandit26 from bandit25 should be fairly easy… The shell for user bandit26 is not /bin/bash, but something else. Find out what it is, how it works and how to break out of it.
+
+* I checked the files in the home directory. 
+
+```
+bandit25@bandit:~$ ls -la
+total 32
+drwxr-xr-x  2 root     root     4096 Dec 28 14:34 .
+drwxr-xr-x 29 root     root     4096 Dec 28 14:34 ..
+-rw-r-----  1 bandit25 bandit25   33 Dec 28 14:34 .bandit24.password
+-rw-r--r--  1 root     root      220 Sep  1  2015 .bash_logout
+-rw-r--r--  1 root     root     3771 Sep  1  2015 .bashrc
+-rw-r-----  1 bandit25 bandit25    4 Dec 28 14:34 .pin
+-rw-r--r--  1 root     root      655 Jun 24  2016 .profile
+-r--------  1 bandit25 bandit25 1679 Dec 28 14:34 bandit26.sshkey
+```
+
+* From there i notice there is a private ssh key for bandit26.
+* I try and login into bandit26 user with this key.
+
+```
+
+bandit25@bandit:~$ ssh -i bandit26.sshkey -t bandit26@localhost
+```
+
+* Immediately when i login the banner shows up, but the connection is closed.
+* The tasks does say the that /bin/bash is not in the shell used on bandit26 account.
+* So i try and find out what shell is being used.
+* I can do this by checking the /etc/passwd file to see what shell bandit26 is using.
+
+```
+bandit25@bandit:~$ cat /etc/passwd
+```
+
+* The shell is;
+
+```
+bandit26:x:11026:11026:bandit level 26:/home/bandit26:/usr/bin/showtext
+```
+* So i looked into the file to see its contents.
+
+```
+bandit25@bandit:~$ cat /usr/bin/showtext 
+#!/bin/sh
+
+export TERM=linux
+
+more ~/text.txt
+exit 0
+```
+
+* From this file it seems like the banner is displayed with more.
+* I quickly check man page for more.
+
+```
+bandit25@bandit:~$ man more
+```
+
+* Here what i could do is minimize the screen to force more command.
+* From the man pages, i found out you can enter vi mode with v command.
+* Then we can edit the contents of /etc/bandit_pass/bandit26 with e command in vi.
+
+1. First minimize the terminal and ssh into the bandit26.
+
+```
+bandit25@bandit:~$ ssh -i bandit26.sshkey -t bandit26@localhost 
+```
+
+2. Then we enter more, we can now enter vi mode with v command.
+
+3. Now we can edit the /etc/bandit_pass/bandit26 file with :e command
+
+```
+:e /etc/bandit_pass/bandit26
+```
+
+4. This will then give us the password for bandit26.
+
+```
+5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z
+```
+
+
+* This was the end of overthewire bandit. Fun challenges and great way to learn bash and some bash scripting.
+
+
