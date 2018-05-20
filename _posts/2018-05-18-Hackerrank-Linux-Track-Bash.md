@@ -91,3 +91,28 @@ echo Welcome $name
 ```
 
 
+---
+
+### Challenge 4 - Looping with Numbers
+
+Use for loops to display the natural numbers from 1 to 50.
+
+* Algorithm
+
+1. Create a loop that iterates from 1 to 50
+2. Display each number in the loop.
+
+
+* Code
+
+```
+#!/bin/bash
+
+#Bash script to loop through 1 to 50 and display them.
+for i in {1..50};
+do
+    echo $i
+done
+```
+
+
