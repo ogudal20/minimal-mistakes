@@ -220,3 +220,45 @@ else
     echo "NO"
 fi
 ```
+
+---
+
+### Challenge 8 - More on Conditionals
+
+Given three integers (X,Y ,and Z) representing the three sides of a triangle, identify whether the triangle is Scalene, Isosceles, or Equilateral.
+
+* Algorithm
+
+1. Read in three integers for the sides of the triangle.
+2. Check if the triangle is a equilateral by checking if all sides are equal.
+3. Check if the triangle is a isosceles by checking if two sides are equal.
+4. Else no sides are equal then its scalene
+
+
+* Code
+
+```
+#!/bin/bash
+
+#Read in three integers for the sides of a triangle.
+read -p "Enter in the first side of the triangle: " first_side
+read -p "Enter in the second side of the triangle: " second_side
+read -p "Enter in the third side of the triangle: " third_side
+
+#Check if the triangle is equaliateral.
+if [ $first_side == $second_side -a $third_side == $second_side ]
+then
+	echo "EQUILATERAL"
+
+#Now check if the triangle is isosceles triangle.
+elif [ $first_side == $second_side -o $third_side == $second_side ]
+then
+	echo "ISOSCELES"
+
+#If these conditions don't meet then we display SCALENE
+else
+	echo "SCALENE"
+fi
+```
+
+
