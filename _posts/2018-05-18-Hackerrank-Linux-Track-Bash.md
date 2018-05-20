@@ -185,3 +185,38 @@ fi
 
 ```
 
+---
+
+### Challenge 7 - Getting started with conditionals
+
+Read in one character from the user (this may be 'Y', 'y', 'N', 'n'). If the character is 'Y' or 'y' display "YES". If the character is 'N' or 'n' display "NO". No other character will be provided as input. 
+
+
+* Algorithm
+
+1. Read in a character.
+2. Check if the character is Y or y if it is, then display YES
+3. Else display NO
+4. end
+
+* Code
+
+```
+#!/bin/bash 
+
+#Read in a character
+
+read -p "Enter in a character: " char
+
+
+#Check if the input if y or Y then display YES
+#-o stands for or
+#whereas -a stands for and.
+
+if [ $char == "y" -o $char == "Y" ]
+then 
+    echo "YES"
+else
+    echo "NO"
+fi
+```
