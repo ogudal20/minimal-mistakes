@@ -2,7 +2,7 @@ I'm going to try and further my knowledge in bash and bash scripting.
 This will be done through hackerrank challenges on bash track.The link to challenges is below.
 [Hackerrank Bash Challenges](https://www.hackerrank.com/domains/shell/bash)
 
-* Challenge 1 - Let's Echo
+### Challenge 1 - Let's Echo
 
 Write a bash script which does just one thing: saying "HELLO".
 
@@ -34,7 +34,7 @@ echo "HELLO"
 ---
 
 
-* Challenge 2 - Looping and Skipping
+### Challenge 2 - Looping and Skipping
 
  
 Your task is to use for loops to display only odd natural numbers from to .
@@ -61,6 +61,33 @@ do
         echo $i
     fi
 done
+```
+
+
+---
+
+### Challenge 3 - A personalized Echo
+
+Write a Bash script which accepts as input and displays a greeting: "Welcome (name)"
+
+
+* Algorithm
+
+1. Read in name from stdin. Store in a variable.
+2. Output Welcome followed by name variable.
+
+* Code
+
+```
+#!/bin/bash
+
+#Bash takes a name as input then displays Welcome [name]
+
+#Read in a name from the user.
+read -p "Enter in a name: " name
+
+#Display Welcome name.
+echo Welcome $name
 ```
 
 
