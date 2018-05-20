@@ -116,3 +116,33 @@ done
 ```
 
 
+---
+
+### Challenge 5 - The World of Numbers
+
+Given two integers, x and y , find their sum, difference, product, and quotient.
+
+
+* Algorithm 
+
+1. Read in two numbers from stdin.
+2. Add them, subtract, product and divide.
+3. Display the results.
+
+* Code
+
+```
+/bin/bash
+
+#Read in two numbers from the user.
+read -p "Enter in the first number: " first_num
+read -p "Enter in a second number: " second_num
+
+#Arithmetic
+expr $first_num + $second_num
+expr $first_num - $second_num
+expr $first_num \* $second_num   #Escape * As this will display all files in the current directory.
+expr $first_num / $second_num
+```
+
+
