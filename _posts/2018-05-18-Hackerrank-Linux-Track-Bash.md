@@ -146,3 +146,42 @@ expr $first_num / $second_num
 ```
 
 
+---
+
+### Challenge 6 - Comparing Numbers
+
+Given two integers, x and y , identify whether x < y or x > y or x = y. 
+
+* Algorithm
+
+1. Read in a number.
+2. Read in another number
+3. Check if the first number is greater than the second number.
+4. Check if the first number is less than second number.
+5. Else check if they are equal.
+
+* Code
+
+```
+!/bin/bash
+
+#Read in two numbers from stdin.
+read -p "Enter in a number: " first_num
+read -p "Enter in a second number: " second_num
+
+#Check if the first number is greater than the second.
+if [ $first_num -gt $second_num ]
+then
+	echo "X is greater than Y"
+	
+elif [ $first_num -lt $second_num ]
+then
+	echo "X is less than Y"
+
+else
+	echo "X is equal to Y"
+
+fi
+
+```
+
