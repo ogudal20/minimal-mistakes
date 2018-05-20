@@ -34,3 +34,33 @@ echo "HELLO"
 ---
 
 
+* Challenge 2 - Looping and Skipping
+
+ 
+Your task is to use for loops to display only odd natural numbers from to .
+
+
+* Algorithm
+
+1. Loop from 1 to 99.
+2. Check if the number is odd.
+3. Display the number is it is odd number
+4. Else does not display number.
+
+* Code
+
+```
+#!/bin/bash
+
+#Script to display odd numbers from 1 to 99.
+for i in {1..99};
+do
+    #Check if i is a odd number.
+    if(($i % 2 != 0))
+    then
+        echo $i
+    fi
+done
+```
+
+
