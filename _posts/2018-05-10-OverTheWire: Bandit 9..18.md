@@ -401,9 +401,11 @@ Connection closed by foreign host.
 The password for the next level can be retrieved by submitting the password of the current level to port 30001 on localhost using SSL encryption.
 
 * I looked at the man pages for s_client on how to connect to to host and port
+
 ```
 [-connect host:port]
 ```
+
 * Now i need to add the -ign_eof which stops the connection shutting down when the end of file is reached.
 
 ```
@@ -411,6 +413,7 @@ bandit14@bandit:~$ openssl s_client -connect localhost:30001 -ign_eof
 ```
 
 * Output
+
 ```
 CONNECTED(00000003)
 depth=0 CN = bandit
@@ -418,11 +421,11 @@ verify error:num=18:self signed certificate
 verify return:1
 depth=0 CN = bandit
 verify return:1
----
+--
 Certificate chain
  0 s:/CN=bandit
    i:/CN=bandit
----
+--
 Server certificate
 -----BEGIN CERTIFICATE-----
 MIICsjCCAZqgAwIBAgIJAKZI1xYeoXFuMA0GCSqGSIb3DQEBCwUAMBExDzANBgNV
@@ -443,11 +446,11 @@ XFnxdxVy0ImGYtvmnZDQCGivDok6jA==
 -----END CERTIFICATE-----
 subject=/CN=bandit
 issuer=/CN=bandit
----
+--
 No client certificate CA names sent
----
+--
 SSL handshake has read 1015 bytes and written 631 bytes
----
+--
 New, TLSv1/SSLv3, Cipher is AES128-SHA
 Server public key is 2048 bit
 Secure Renegotiation IS supported
@@ -480,13 +483,14 @@ SSL-Session:
     Start Time: 1526211835
     Timeout   : 300 (sec)
     Verify return code: 18 (self signed certificate)
----
+--
 BfMYroe26WYalil77FoDi9qh59eK5xNr
 Correct!
 cluFn7wTiGryunymYOu4RcffSxQluehd
 
 closed
 ```
+
 * Near the end at pasted in the password for the last level and that echo back the level for the next level.
 
 
@@ -500,6 +504,7 @@ The credentials for the next level can be retrieved by submitting the password o
 
 * In this challenge i had to use nmap to portscan on a range of ports
 * I already have some previous experience with the tool so this was not a difficult challenge.
+
 ```
 bandit16@bandit:~$ nmap -A -vv -sT -T4 -p31000-32000 localhost
 ```
@@ -511,6 +516,7 @@ bandit16@bandit:~$ nmap -A -vv -sT -T4 -p31000-32000 localhost
 * localhost the host we are scanning.
 
 * The output revealed.
+
 ```
 PORT      STATE SERVICE     REASON  VERSION
 31046/tcp open  echo        syn-ack
@@ -592,12 +598,14 @@ SF:e\x20enter\x20the\x20correct\x20current\x20password\n");
 
 * We can see that 5 ports are open between these port ranges.
 * Also only two of those ports are running a ssl service.
+
 ```
 31790/tcp open  ssl/unknown syn-ack
 31518/tcp open  ssl/echo    syn-ack
 ```
 
 * I tried to connect to the first one  in that list.
+
 ```
 bandit16@bandit:~$ openssl s_client -connect localhost:31790 -ign_eof
 ```
@@ -755,6 +763,7 @@ bandit16@bandit:/tmp/bandit16$ chmod 600 sshpass.txt
 ```
 
 * Now we login into the next level bandit17.
+
 ```
 bandit16@bandit:/tmp/bandit16$ ssh -i sshpass.txt bandit17@localhost
 ```
