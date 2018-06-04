@@ -96,10 +96,10 @@
 </html>
 ```
 
-* <header> element is used for introductory content.
-* <div> tag is used to divde different sections within a HTML document.The <div> is oftemn used together with CSS, to layout a webpage.
+* The <header> element is used for introductory content.
+* The <div> tag is used to divde different sections within a HTML document.The <div> is oftemn used together with CSS, to layout a webpage.
 * I gave each <div> tag a with class so i could identify it with css.
 * I then used <ul> for an unordered list.
-* <a> defines a hyperlink where i then used href to specify where the url of the page will go. In this situation i have not yet link it to anywhere.
+* The <a> defines a hyperlink where i then used href to specify where the url of the page will go. In this situation i have not yet link it to anywhere.
 * I have added a image for the middle section. Which is a just a chef hat.
 
