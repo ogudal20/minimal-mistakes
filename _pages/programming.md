@@ -10,7 +10,7 @@ permalink: /programming/
 
 
 ### Java:
-
+* [Email Managment System](https://github.com/ogudal20/Email-Management-System)
 
 ### Python:
 
