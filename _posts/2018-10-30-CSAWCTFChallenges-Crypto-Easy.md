@@ -103,3 +103,35 @@ We will also require a key to be let into the meetings; this weeks key will be o
 ```
 
 
+### Crypto 3 - 2011
+
+* This challenges give a string of bits.
+* I first place this in a file as its pretty long.
+
+```
+#!/bin/python3 
+import binascii
+
+#Convert binary to ascii.
+
+#Open file containing binary.
+FILE = open("binarydata", "r+")
+
+#Read the file.
+binaryFile = FILE.read()
+
+#Convert binary to ascii.
+n = int(binaryFile, 2)
+
+#Display the ascii representation.
+print(binascii.unhexlify('%x' % n))
+```
+
+* I use binascii to convert from binary to ascii.
+* The solution;
+
+```
+Last weeks meeting was a great success. We seem to be generating a lot of buzz about the movement. 
+The key for next weeks meeting is resistance. 
+If there is anyone else you know of that may be interested in joining bring them to the meeting this week. It will be held same time, same place.'
+```
