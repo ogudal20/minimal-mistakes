@@ -135,3 +135,27 @@ Last weeks meeting was a great success. We seem to be generating a lot of buzz a
 The key for next weeks meeting is resistance. 
 If there is anyone else you know of that may be interested in joining bring them to the meeting this week. It will be held same time, same place.'
 ```
+
+### Crypto 4 - 2011
+
+* This challenge was pretty straightfoward there was base64 encoded
+string and all that was needed to decoding this string.
+
+* I used the base64 module from python to complete this challenge.
+
+```
+#!/bin/python3
+import base64
+
+#Base64 decode to ascii.
+string = "VGhhdCBtZWV0aW5nIHdhcyBhIGxpdHRsZSBjcmF6eS4gV2UgaGF2ZSBubyBpZGVhIHdoZXJlIHRob3NlIGd1eXMgaW4gdGhlIGJsYWNrIHN1aXRzIGNhbWUgZnJvbSwgYnV0IHdlIGFyZSBsb29raW5nIGludG8gaXQuIFVzZSB0aGUga2V5IGluZmlsdHJhdGlvbiBmb3IgbmV4dCB3ZWVrknMgbWVldGluZy4gU3RheSB3aXRoIHRoZSBjYXVzZSBhbmQgd2Ugd2lsbCBzdWNjZWVkLg=="
+
+print(base64.b64decode(string))
+```
+
+* Flag is;
+
+```
+That meeting was a little crazy. We have no idea where those guys in the black suits came from, but we are looking into it. Use the key infiltration for next week\x92s meeting. Stay with the cause and we will succeed.
+```
+
